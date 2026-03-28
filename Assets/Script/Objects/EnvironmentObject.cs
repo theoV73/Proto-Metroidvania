@@ -15,9 +15,10 @@ public class EnvironmentObject : MonoBehaviour
     [SerializeField]
     private bool _mobile;
     [SerializeField]
+    private bool _loop = true;
+    [SerializeField]
     private float time;
     private float actualtime;
-    private Collider colliderEnemie;
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,7 +55,7 @@ public class EnvironmentObject : MonoBehaviour
         for (int i = 0; i < checkpoints.Count-1; i++)
         {
             actualtime = 0;
-            while (actualtime < _time[i])
+            while (actualtime < _time[i]) //suit les points dans l'ordre -> aller
             {
                 actualtime += Time.deltaTime;
                 gameObject.transform.position = Vector2.Lerp(checkpoints[i], checkpoints[i + 1], actualtime / _time[i]);
@@ -64,13 +65,14 @@ public class EnvironmentObject : MonoBehaviour
         for (int i = checkpoints.Count-1; i > 0; i--)
         {
             actualtime = 0;
-            while (actualtime < _time[i - 1])
+            while (actualtime < _time[i - 1]) //suit les points dans le sens inverse ->retour
             {
                 actualtime += Time.deltaTime;
                 gameObject.transform.position = Vector2.Lerp(checkpoints[i], checkpoints[i - 1], actualtime / _time[i-1]);
                 yield return null;
             }
         }
-        StartCoroutine(Movement());
+        if(_loop)
+            StartCoroutine(Movement());
     }
 }
