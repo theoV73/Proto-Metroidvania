@@ -6,9 +6,6 @@ using static Unity.VisualScripting.Member;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerJump : MonoBehaviour
 {
-    // -------------------------------------
-    // JUMP FEEL
-    // -------------------------------------
     [Header("Jump Power")]
     [SerializeField]
     private float _jumpForce = 16f;
@@ -50,10 +47,6 @@ public class PlayerJump : MonoBehaviour
     private float _apexThreshold = 2f;
     [SerializeField]
     private float _apexGravityMultiplier = 0.4f;
-
-    // -------------------------------------
-    // ÉTAT INTERNE
-    // -------------------------------------
     private Rigidbody2D _rb;
     private float _defaultGravityScale;
 
@@ -66,9 +59,6 @@ public class PlayerJump : MonoBehaviour
     private float _coyoteTimer;
     private float _jumpBufferTimer;
 
-    /// <summary>
-    /// Brancher sur : Action "Jump" -> Phase Started
-    /// </summary>
     public void OnJumpStarted()
     {
         _jumpInputHeld = true;
@@ -92,9 +82,6 @@ public class PlayerJump : MonoBehaviour
         }
 
     }
-    /// <summary>
-    /// Brancher sur : Action "Jump" - > Phase Canceled
-    /// </summary>
     public void OnJumpCanceled()
     {
         _jumpInputHeld = false;
@@ -104,9 +91,6 @@ public class PlayerJump : MonoBehaviour
             _isJumping = false;
     }
 
-    // ------------------------------------------
-    // LIFECYCLE
-    // -----------------------------------------
 
     private void Awake()
     {
@@ -167,10 +151,6 @@ public class PlayerJump : MonoBehaviour
         ApplyGravityModifiers();
         ClampFallSpeed();
     }
-
-    // --------------------------------------------
-    // LOGIQUE INTERNE
-    // --------------------------------------------
 
     /// <summary>
     /// Déclenche le saut : applique la force initiale et initialise tous les timers.
